@@ -10,24 +10,33 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection("chats/R2M0dLKRhaLgsUkzqjgp/messages")
-          .snapshots(),
-      builder: (ctx, streamSnapShot) {
-        if (streamSnapShot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("chats/R2M0dLKRhaLgsUkzqjgp/messages")
+            .snapshots(),
+        builder: (ctx, streamSnapShot) {
+          if (streamSnapShot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
 
-        final document = streamSnapShot.data?.docs;
-        return ListView.builder(
-          itemBuilder: (ctx, index) => Container(
-            padding: const EdgeInsets.all(8),
-            child: Text(document![index]['text']),
-          ),
-          itemCount: document!.length,
-        );
-      },
-    ));
+          final document = streamSnapShot.data?.docs;
+          return ListView.builder(
+            itemBuilder: (ctx, index) => Container(
+              padding: const EdgeInsets.all(8),
+              child: Text(document![index]['text']),
+            ),
+            itemCount: document!.length,
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          FirebaseFirestore.instance.collection('chats/R2M0dLKRhaLgsUkzqjgp/messages').add({
+            "text": "Added from floating button"
+          });
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
