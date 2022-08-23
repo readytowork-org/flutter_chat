@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import './screens/chat.dart';
 
-void main() {
+void main() async{
+
   runApp(const MyApp());
 }
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ChatScreen(),
+      home:  ChatScreen(),
     );
   }
 }
