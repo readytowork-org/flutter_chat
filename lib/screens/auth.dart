@@ -13,12 +13,8 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
 
-  void _submitAuthForm(
-    String email,
-    String username,
-    String password,
-    bool isLogin,
-  ) async {
+  void _submitAuthForm(String email, String username, String password,
+      bool isLogin, BuildContext ctx) async {
     UserCredential _authResult;
     try {
       if (isLogin) {
@@ -28,21 +24,20 @@ class _AuthScreenState extends State<AuthScreen> {
         _authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
       }
-    } on PlatformException catch (error) {
+    } on FirebaseAuthException catch (error) {
       var message = "An error occured, please check your credentials !";
 
       if (error.message != null) {
         message = error.message!;
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Item added to your cart."),
-          duration: Duration(seconds: 2),
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Theme.of(context).errorColor,
         ),
       );
-    } catch (err) {
-      print(err);
     }
   }
 
