@@ -24,11 +24,12 @@ class MyApp extends StatelessWidget {
           secondary: Colors.purple,
         ),
         backgroundColor: Colors.pink,
-        buttonTheme: ButtonTheme.of(context).copyWith(
-          buttonColor: Colors.pink,
-          textTheme: ButtonTextTheme.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.pink,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
         ),
       ),
