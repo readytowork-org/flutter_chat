@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm(this.submitForm, {Key? key}) : super(key: key);
   final void Function(
       String email, String username, String password, bool isLogin) submitForm;
+  const AuthForm(this.submitForm, {Key? key}) : super(key: key);
 
   @override
   State<AuthForm> createState() => _AuthFormState();
