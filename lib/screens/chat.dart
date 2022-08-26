@@ -1,15 +1,45 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          DropdownButton(
+            items: [
+              DropdownMenuItem(
+                value: 'logout',
+                child: Row(children: const [
+                  Icon(
+                    Icons.exit_to_app,
+                    color: Colors.black45,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text("Logout")
+                ]),
+              ),
+            ],
+            onChanged: (itemIdentifier) {
+              if (itemIdentifier == 'logout') {
+                FirebaseAuth.instance.signOut();
+              }
+            },
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).primaryIconTheme.color,
+            ),
+          )
+        ],
+      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("chats/R2M0dLKRhaLgsUkzqjgp/messages")
@@ -31,9 +61,9 @@ class ChatScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          FirebaseFirestore.instance.collection('chats/R2M0dLKRhaLgsUkzqjgp/messages').add({
-            "text": "Added from floating button"
-          });
+          FirebaseFirestore.instance
+              .collection('chats/R2M0dLKRhaLgsUkzqjgp/messages')
+              .add({"text": "Added from floating button"});
         },
         child: const Icon(Icons.add),
       ),
