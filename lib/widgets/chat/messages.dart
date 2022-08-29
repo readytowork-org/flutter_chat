@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './message_bubble.dart';
 
 class Messages extends StatelessWidget {
   const Messages({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class Messages extends StatelessWidget {
           reverse: true,
           itemBuilder: (ctx, index) => Container(
             padding: const EdgeInsets.all(8),
-            child: Text(document[index]['text']),
+            child: MessageBubble(document[index]['text']),
           ),
           itemCount: document.length,
         );

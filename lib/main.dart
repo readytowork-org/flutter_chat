@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           if (snapShot.hasData) {
             return ChatScreen();
           } else {
-           return const AuthScreen();
+            return const AuthScreen();
           }
         },
       ),
