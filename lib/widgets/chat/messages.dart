@@ -9,7 +9,13 @@ class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("chat").snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection("chat")
+          .orderBy(
+            "created_at",
+            descending: true,
+          )
+          .snapshots(),
       builder: (ctx, chatSnapShot) {
         if (chatSnapShot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
