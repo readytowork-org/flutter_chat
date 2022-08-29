@@ -17,6 +17,7 @@ class Messages extends StatelessWidget {
 
         final document = chatSnapShot.data!.docs;
         return ListView.builder(
+          reverse: true,
           itemBuilder: (ctx, index) => Container(
             padding: const EdgeInsets.all(8),
             child: Text(document[index]['text']),
